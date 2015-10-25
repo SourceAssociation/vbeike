@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<link href="../Public/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="keywords" content="{$ts['site']['site_header_keywords']}" />
+<meta name="description" content="{$ts['site']['site_header_description']}" />
+<link rel="icon" href="../Public/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="../Public/favicon.ico" type="image/x-icon"/>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=2.0"/>
+<meta name="MobileOptimized" content="240"/>
+<title>{$ts['site']['site_name']} | 欢迎你,{$profile['uname']}</title>
+<link href="../Public/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="top"><a href="{:U('wap/Index/index')}" title="{$ts['site']['site_name']}" ><img src="../Public/logo.jpg"/></a></div>
+<div>
+    <a href="{:U('wap/Index/publicsquare')}">广场</a> |
+    <a href="{:U('wap/Index/post',array('key'=>$keyword))}">发微博</a> | 
+    <a href="{:U('wap/Index/topic')}">话题</a> | 
+    <a href="{:U('wap/Index/search')}">搜索</a> |
+    <a href="{$self_url}">刷新</a> 
+</div>

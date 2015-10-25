@@ -1,0 +1,56 @@
+        <volist name="sync" id="v">
+            <label>
+                <input type='checkbox' name='sync[]' value='{$v}' style="vertical-align:middle;" <php>if($login_bind[$v]){</php>checked=true<php>}</php> id='{$v}_sync' onclick='loginSelectSync(this)' />
+                <span>{$alias[$v]}</span>
+            </label>
+        </volist>
+
+    		 <label>
+                <input type='checkbox' name='rr_sync' value='renren' style="vertical-align:middle;" <php>if($_SESSION['rr_sync']){</php>checked=true<php>}</php> id='rr_sync' onclick='rr_loginSelectSync(this)' />
+                <span>同步人人</span>
+        </label>     
+
+
+
+
+<script>
+    //同步设置
+    function loginSelectSync(o) {
+        if(o.checked) {
+            $(o).removeAttr('checked');
+            $.get( U('home/public/displayAddons') ,{addon:"Login",hook:"login_ajax_bind_publish_weibo",type:$(o).val(),'do':'ajax_bind'},function(txt) {
+            	if(txt == '1'){
+                    $(o).attr('checked',true);
+                }else{
+					ui.box.show(txt, {title:'绑定帐号'});
+                }
+            });
+        } else {
+            $(o).attr('checked', true);
+            $.post(U('home/Widget/addonsRequest'), {
+                addon : "Login",
+                hook : "login_unbind_publish_weibo",
+                type : $(o).val()
+            }, function(txt) {
+                $(o).removeAttr('checked');
+            });
+        }
+    }
+	
+	function rr_loginSelectSync(o){   //同步人人
+		var sync=0;
+		if(o.checked){
+			sync=1;
+		}
+		$.get( U('home/Public/rr_sync') ,{is_sync:sync},function(txt) {
+			if(txt == 1){
+				$(o).attr('checked',true);
+			}else if( txt== 2 ){
+				$(o).removeAttr('checked');
+			}else{
+				$(o).removeAttr('checked');
+				ui.box.show(txt, {title:'绑定帐号'});
+			}
+		});       
+	}
+</script>

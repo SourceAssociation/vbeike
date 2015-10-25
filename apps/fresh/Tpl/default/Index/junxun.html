@@ -1,0 +1,129 @@
+<include file="__THEME__/header" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/weibo.js"></script>
+<link href="../Public/junxun.css" rel="stylesheet" type="text/css">
+<div class="content_holder">
+<include file="../Public/_mainNav" />
+<div class="content"><!-- 内容 begin  -->
+  <div class="main no_l">
+    <div class="mainbox boxspace"  style="background-image:url(../Public/images/vbeike_bg_last.png);background-repeat:repeat;">
+      <div class="mainbox_appR"  style="width:250px;padding:3px;float:right;">
+			<div id="junxun_sources">
+				<ul>
+					<li>军</li>
+					<li>训</li>
+					<li>手</li>
+					<li>册</li>
+				</ul>
+			</div>
+			<div id="srcs">
+				<a href="../Public/junxun.pdf" target="_blank">
+					<image src="../Public/images/junxun_guide.jpg"></image>
+				</a>
+			</div>
+			<div id="junxun_guide">
+				<dl>
+					<dt>时间：</dt>
+					<dd>2012-9-1</dd>
+					<dt>地点：</dt>
+					<dd>北京怀柔郊区</dd>
+					<dt>时长：</dt>
+					<dd>12天</dd>
+					<dt>带队人：</dt>
+					<dd>辅导员</dd>
+					<dt>注意事项：</dt>
+					<dd>参见<font color='red'><a href="../Public/junxun.pdf" target="_blank">军训手册</a></font></dd>
+				</dl>
+			</div>
+			<div id="guide_nav">
+				<ul>
+					<li>军</li>
+					<li>训</li>
+					<li>指</li>
+					<li>南</li>
+				</ul>
+			</div>
+			 <div class="clear" style="clear:both;margin:0;parding0;height:0px;font-size:0px;"></div>
+      </div>
+      <div class="mainbox_appC boxspace_L" >
+		   {:Addons::hook('home_topic_detail_left_top')}
+        <if condition="$topics['topic_id']">
+        <div class="topics_info">
+          <if condition="$topics['pic']"><img alt="#{$topics.name}#" src="thumb.php?url={:SITE_URL}/data/uploads/{$topics.pic}&w=625&h=170" /></if>
+          <dl class="topics_info_dl">
+            <dt>#{$topics.name}#</dt>
+            <dd>{$topics.content}<if condition="$topics['link']"><a href="{$topics.link}" target="_blank">&gt;&gt;详细</a></if></dd>
+          </dl>
+        </div>
+        </if>
+        {:Addons::hook('home_topic_detail_left_middle')}
+        <div class="talkBox" style="height:160px">
+          <form method="post" action="{:U('weibo/operate/publish')}" id="miniblog_publish" class="formObj" oncomplete="false">
+            <input type="hidden" name="publish_type" value="0">
+            <h2>
+              <div class="wordNum numObj"></div>
+              <span>大话军训……</span></h2>
+            <div class="cntBox">
+              <input type="button" disabled="true" class="btn_big_disable hand buttonObj" value="&nbsp;" id="publish_handle"  />
+              <textarea name="content" id="content_publish" class="contentObj" cols="" rows="" style="width:85%;max-width:85%;min-width:85%;height:55px;max-height:55px;min-height:55px;*height:52px;padding:5px; margin:0; _padding:5;overflow: hidden;overflow-x:hidden;overflow-y:auto;line-height:18px">#{$topics.name}#</textarea>
+              <div class="txtShadow" style="z-index:-1000"></div>
+            </div>
+                  <div class="funBox">
+                    <php>if(Addons::requireHooks("home_index_middle_publish")){</php>
+                    <div class="right" style="padding-bottom:5px; cursor:hand;width:80px; cursor:pointer"  onclick='weibo.showAndHideMenu("Sync", this, "", "");'>
+                        同步<a href="#" class="ico_sync_on"></a>
+                    </div>
+                    <div id="Sync" style="display:none;position:absolute;right:23px;top:30px;z-index:9999">
+                        <div class="topic_app"></div>
+                        <div class="pop_inner">
+                                    {:Addons::hook('home_index_middle_publish')}
+                        </div>
+                    </div>
+                    <php>}</php>
+                  <div id="publish_type_content_before" class="left">
+                    {:Addons::hook('home_index_middle_publish_type',array('position'=>'other'))}
+                  </div>
+            </div>
+          </form>
+        </div>
+        <div class="tab-menu"><!-- 切换标签 begin  -->
+          <ul>
+            <li><a href="###" class="on feed_item"><span>最新Freshman~</span></a></li>
+          </ul>
+        </div>
+        <div class="MenuSub alR">
+        	<span class="left cGray">该话题共有"<span class="cRed">{$list.count}</span>"条相关微博</span>
+	        <volist name="weibo_menu" id="vo"><php>if ($i > 1) {</php>|<php>}</php><a
+	        href="{:U('home/user/topics', array('k'=>urlencode($search_key),'type'=>$key))}" 
+	        <eq name="type" value="$key">class="on"</eq>>{$vo}</a></volist>
+	    </div>
+        <div class="feedBox">
+          {:W('WeiboList', array('mid'=>$mid, 'list'=>$list['data'], 'insert'=>1))}
+        </div>
+        <div class="c"></div>
+        <div class="page">{$list.html}</div>
+        {:Addons::hook('home_topic_detail_left_bottom')}
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+</div>
+<script>
+var weibo = $.weibo({
+    initForm:false
+    });
+var default_string = "#{$topics.name}#";
+weibo.initForm("miniblog_publish",{       
+        enter:function(formObj,buttonObj,contentObj,numObj,txt){
+        	var content = $('#content_publish').val();
+        	var isTopics = content.search(default_string);
+        	if(isTopics != -1) {
+	            $('#feed_list').prepend( txt ).slideDown('slow');
+        	}
+            contentObj.val(default_string);
+        }
+   });
+</script>
+{:Addons::hook('weibo_js_plugin')}
+<include file="__THEME__/footer" /> 

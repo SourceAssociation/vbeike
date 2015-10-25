@@ -1,0 +1,45 @@
+<style type="text/css">
+	#setBestBox{
+		width:350px;
+		height:200px;
+		background-color:rgb(225, 248, 240);
+	}
+	#box-main{
+		height:160px;
+		border-bottom:1px dashed red;
+	}
+	#box-bottom{
+		margin-top:3px;
+		border-top:1px dashed red;
+	}
+	#box-bottom span{
+		margin-top:5px;
+		display:block;
+		width:40px; 
+		height:20px;
+		float:right;
+		margin-left:10px;
+		cursor:default;
+	}
+</style>
+<script>
+		function ensure(){    //确认设置为最佳答案
+			ui.box.close();
+			return true;
+		}
+		function cancel(){     //取消最佳答案设置
+			ui.box.close();
+			return false;
+		}
+</script>
+<div id="setBestBox">
+	<div id="box-main">
+		<p>
+			设置为最佳答案，则将从你的积分中扣除您为此问题悬赏的积分~
+		</p>
+	</div>
+	<div id='box-bottom'>
+		<span id='cancel' onclick='cancel()' >取消</span>
+		<span id='ensure' onclick="ensure()">确定</span>
+	</div>
+</div>

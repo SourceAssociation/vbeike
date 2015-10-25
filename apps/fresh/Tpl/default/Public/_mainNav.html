@@ -1,0 +1,27 @@
+<div class="page_tit" style="display:inline;">
+  <h2><img src="{$ts['app']['icon_url']}" />{$ts['app']['app_alias']}</h2>
+  <ul class="tit_tab">
+		<li><a href="{:U('/Index/index')}" <php>
+			if((ACTION_NAME=="index")&&!in_array(ACTION_NAME,array('freshman','junxun','school','question'))) echo "class='on'";
+		
+		</php>>攻略中心</a></li>
+		<li><a href="{:U('/Index/freshman')}" <php>
+			if((ACTION_NAME=="freshman")&&!in_array(ACTION_NAME,array('index','junxun','school','question'))) echo "class='on'";
+		
+		</php>>新人报到</a></li>
+		<li><a href="{:U('/Index/junxun')}" <php>
+			if((ACTION_NAME=="junxun")&&!in_array(ACTION_NAME,array('index','freshman','school','question'))) echo "class='on'";
+		
+		</php>>军训专区</a></li>
+		<li><a href="{:U('/Index/question')}" <php>
+			if((ACTION_NAME=="question")&&!in_array(ACTION_NAME,array('index','freshman','junxun','school'))) echo "class='on'";
+		
+		</php>>北科问问</a></li>
+		<li><a href="{:U('/Index/school')}" <php>
+			if((ACTION_NAME=="school")&&!in_array(ACTION_NAME,array('index','freshman','junxun','question'))) echo "class='on'";
+			
+		</php>>玩转校园</a></li>
+		<!-- <li><a href="{:U('/Index/test')}">测试页面</a></li>  -->
+  </ul>
+  <div class="c"></div>
+</div>

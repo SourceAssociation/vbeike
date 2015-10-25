@@ -1,0 +1,352 @@
+<!--引入系统头文件-->  
+<include file="__THEME__/header" />  
+<!--引入样式文件区-->  
+<link href="../Public/question.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/js/pagination/pagination.css" rel="stylesheet" type="text/css">
+<if condition="$wb">
+{:W('Weibo',array('tpl_name'=>'send_question','button_title'=>'分享'))} 
+<script>
+$(document).ready(function(){
+    _widget_weibo_start('', '{$wb}');
+});
+</script>
+<elseif condition="$res eq 1"/>
+	<script>
+		ui.success('提问成功，经验<font color="red">＋5</font>');
+	</script>
+</if>
+<div class="content_holder">
+<include file="../Public/_mainNav" />
+<div class="content">  
+  <div class="main no_l">
+  <div class="mainbox">  
+<!-- 画布begin  -->  
+    <div class="mainbox_C no_r" style="height:2000px;">
+		<div id="question">
+			<div id="qus_top">
+				<div id="userinfo">
+					<a href="{:U('home/Space&uid='.$mid)}"><image class="user_pic" src="{:getUserFace($mid)}"></image></a>
+					<div id="credits">
+						<span class="info" style="font-size:14px;">{:getUserName($mid);}</span><br>
+						<span class="info">{$money['score']['alias']}：<font color='red'>{$money['score']['credit']}</font></span><br>
+						<span class="info">{$money['experience']['alias']}: <font color='red'>{$money['experience']['credit']}</font></span>
+					</div>
+					
+				</div>
+				<div id="notation"><img src="../Public/images/question.png"></img></div>
+				<div id="qus_sort">
+					<div class="sort_left">
+						<a href="{:U('/Index/question')}"><img src="../Public/images/12.jpg"/></a>
+					</div>
+					<div class="sort_right">
+						<form action="{:U('/Index/qus_mine')}" method="post">
+							<input type="submit" value=""></input>
+						</form>
+					</div>
+				</div>
+				<div id="fenli"></div>
+			</div>
+			<php>
+				if(!empty($res)){
+					if($res==-1){
+					</php>
+						<script>ui.error("积分不足~");</script>
+					<php>
+					}else if($res==0){
+						</php>
+							<script>ui.error("积分不足~");</script>
+						<php>
+					}
+				}
+			</php>
+	<div id="top2">
+		<div id="top2-1">
+		<span id="start_qus">我要提问：</span>
+			<form action="__URL__&act=question" method="post">
+				<textarea id="questionarea" name="question"></textarea>
+				<div id="attach">
+					<div id="with_weibo">
+						<input type="checkbox" id="sendwb" name="to_weibo" value="1">
+						同时发一条微博
+					</div>
+					<div id="without_name">
+						<input type="checkbox" id="private" name="private" value="1">匿名
+					</div>
+					<div id="with_score">
+						<span>积分悬赏</span>
+						<select id="credit-credit" name="givecredit">
+							<option value="0">0</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="30">30</option>
+							<option value="50">50</option>
+							<option value="80">80</option>
+							<option value="100">100</option>
+						</select>
+					</div>
+					<div id="input_sub">
+						<button name="submit" value="sub" id="btnsub"></button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="top2-2">	<!--四个回答者-->  
+		<div id="top2-2-1"><p> 有问题也可以直接<font color='red'>@</font>我们~ </p></div>
+			<php>
+				foreach($askers as $vo){
+					</php>
+						<div class="asker_userPic"><a title="" href="{:U('home/Space/index',array('uid'=>$vo['uid']))}">
+							<img src="{$vo['uid']|getUserFace='m'}" card="1"></a>
+							<div id="at_ta">
+								<p><space uid="vo.uid" class="fn">{uname}</space></p><br>
+								<p><a href="javascript:ui.sendmessage({$vo.uid})">@Ta</a></p>
+							</div>
+						</div>
+						
+					<php>
+				}
+			</php>
+			
+				
+		</div>	
+	</div>
+			
+			<div id="likequestion">   <!--已有的问题-->  
+				<div id="ul_ques">
+			<ul>
+				<foreach name="select" item="itm">
+				<li>   <!--问题的所属用户-->
+					<div class="qes-item">
+					<div class="quser_pic">
+						<a href="<php>
+							if(!$itm['isprivate']){
+							</php>
+								{:U("home/Space/index&uid=$itm[quid]")}
+							<php>	
+							}else{
+								echo '';
+							}
+						</php>" target="<php>$target=($itm['isprivate']?'':'_blank');echo $target;</php>"  class="fn" rel="<php>$rel=($itm['isprivate']?'':'face');echo $rel;</php>" uid="{$itm.quid}">
+							<img src="<php></php>{:getUserFace($itm['quid'])}"/>	
+						</a>
+					</div>
+					<div class="q-content">
+							<php>
+								if($itm['isprivate']){
+									</php>
+										<font style="color:red;font-size:16px;">匿名</font><span class="ask-ques">问：</span>
+										<span class="questions">{$itm.question}</span>
+									<php>
+								}else{
+								</php>
+									 <a href="{:U('home/Space/index&uid='.$itm[quid])}" target="_blank">{:getUserName($itm['quid'])}</a>
+										<span class="ask-ques">问：</span><span class="questions">{$itm.question}</span>
+									<php>
+								}
+							</php>	
+							<div class="ques-bottom">
+								<span class="time">
+									<php>
+										echo date("Y-m-s H:i:s",$itm['qtime']);
+										//echo date("m-s H时i分",);
+									</php>
+								</span>
+							</div>
+							<div class="getbackmsg" onclick="getCommets({$itm.qid})">
+								回复(<php>echo $total[$itm['qid']];</php>)
+							</div>
+						<div class="cmt_textarea">
+							<div class="sub">
+								<textarea id="input_{$itm.qid}" class="cms_input" size="50px">添加回复</textarea>
+								<br><button id="{$itm.qid}" class="sendcmt"></button>
+								<span class="niming"><input type="checkbox" id="pri_{$itm.qid}">匿名</span>
+							</div>
+						</div>
+						<div class="comment" id="{$itm.qid}" value="{$itm.quid}">   <!--pinglun-->
+							<ul class="ans">
+							</ul>
+						</div>
+					</div>					
+					</div>
+				</li>		
+				</foreach>
+			</ul>
+			</div>
+				<div id="Pagination" class="pagination">{$page}</div>
+				<!--回复弹出框-->
+			</div>
+			
+		</div>
+		<div class="clear" style="clear:both;margin:0;parding0;height:0px;font-size:0px;"></div>
+	</div>  
+<!-- 画布end   -->  
+  <div class="c"></div><!--分隔层-->  
+    </div>  
+</div>  
+</div>  
+</div>
+<!-- 内容end -->  
+  {:W('Weibo',array('tpl_name'=>'send_question','button_title'=>'分享'))}
+  <php>
+	$tpl_data=urlencode(serialize(array(
+				'url'=>U('fresh/Index/question'),
+		)));
+  </php>
+ <script type="text/javascript">
+ 		//查看回复
+function getCommets(qid){
+	if($.trim($("div[id='"+qid+"'] ul").text())==""){
+			getJSONComment(qid);    				//ajax  加载评论数据			
+			$("div[id='"+qid+"']").slideToggle("slow");
+		}else{
+			$("div[id='"+qid+"']").slideToggle("slow");
+		}
+	}			
+function getFormatTime(day2){
+	return day2.getFullYear()+"-"+(day2.getMonth()+1)+"-"+day2.getDate()+" "+day2.getHours()+":"+day2.getMinutes()+":"+day2.getSeconds();
+}
+function getLocalTime(date) { 
+	var day2 = new Date(date * 1000);
+	return getFormatTime(day2);
+}
+		
+	function getJSONComment(qid){   	 	 //JSON方式获取评论数据
+				$.getJSON('__URL__&act=getBackMsg&qid='+qid,function(data){	
+				var html="";
+				if(data==null||data==""){
+					html+='<li><font color="red">亲，木有回复，来抢第一个沙发吧~</font></li>';
+				}else{
+					//console.log(data[0][0]);
+					for(var i=0;i<data.length;i++){
+						html+=("<li id="+data[i].aid+" class="+qid+">");
+						html+=("<div class='li-left-pic'>"+"<img src='"+data[i][1]+"'></img>"+"</div>");
+						html+="<div class='li-reply-content'>";
+						if(data[i]["isprivate"]=="0"){
+							html+=("<a target='_blank' href='{:SITE_URL}/index.php?app=home&mod=Space&act=index&uid="+data[0].auid+"'>"+data[0][0]+"</a>");
+						}else{
+							html+="<font color='red'>匿名</font>)";
+						}
+						html+="：";
+						html+=data[i].answer;
+						html+='</div>';
+						html+="<div class='li-reply-legend'>";
+						html+=("<span class='atime'>"+getLocalTime(data[i].atime)+"</span>|");
+						html+=("<span class='span-credit'>经验:+<font color='red'>"+data[i].getexp+"</font></span>|");
+						html+=("<span class='span-exp'>积分:+<font color='red'>"+data[i].getcredit+"</font></span>");
+						if(data[i]['isbest']=="1"){
+							html+=("|  <span class='best_a' style='color:red;'>最佳答案</span>");
+							html+="</div>";
+						}else{
+							html+="</div>";
+							html+="<div class='setbest' style='display:none;'>";
+							html+='设为最佳';
+							html+="</div>";
+						}
+						html+='</li>';
+					}
+				}	
+				$("div[id='"+qid+"'] ul").append(html);
+			});
+		}
+	//查看问题广场!doctype
+		function qus_square(){
+			window.location.reload();
+		}
+	//查看我的问题
+		function qus_mine(){
+			$.post("{:U('/Index/question')}",{'sort':'mine'});
+		}
+	
+	$(document).ready(function(){	
+			//显示设为最佳
+			$("ul.ans li").live('mouseover',function(){
+				var quid=$(this).parent('ul').parent('div.comment').attr('value');
+				if(quid=="{:$mid}"){
+					$(this).children(".setbest").css("display","block");
+				}			
+			});
+			$("ul.ans li").live('mouseout',function(){
+				$(this).children('.setbest').css('display','none');	
+			});
+	
+		$("textarea[class='cms_input']").focus(function(){      //获得焦点的时候  清楚  '添加回复'
+			$(this).css("height","70px");
+			if($(this).val()=="添加回复"){
+				$(this).val('');
+			}
+			
+		});
+	
+		//alert(new Date());
+		
+		$("textarea[class='cms_input']").blur(function(){    	//shiqu焦点的时候  清楚  '添加回复'
+			var content=$(this).val();
+			if($.trim(content)==""){
+				$(this).css("height","20px");
+				$(this).val('添加回复');
+				return ;
+			}
+		});
+		
+		//设为最佳答案
+		$("ul.ans li div.setbest").live('click',function(){
+			//ui.box.load('../Public/setBest_box.html',{'title':'设置最佳答案'});
+			if($(this).text()=='最佳答案'){return false;}
+			var aid=$(this).parent('li').attr('id');    			//获取最佳答案id
+			var qid=$(this).parent('li').attr('class');
+			if(confirm("设置最佳答案，将会从你的积分中扣除你对此问题的悬赏积分~")){
+				$.get('__URL__&act=setBestAns&aid='+aid+'&qid='+qid,function(data){
+				if(data==1){
+					$("ul.ans li[id='"+aid+"'] div.li-reply-legend").append('|<span style="color:red;margin-left:15px;">最佳答案</span>');
+					$("ul.ans li[id='"+aid+"'] div.setbest").remove();
+					ui.success('设置成功~');
+				}else if(data==0){
+					ui.error('该回复已是最佳答案~');
+				}else{
+					ui.error('Sorry~你的积分不足~');
+				}
+			});
+			}else{
+				return false;
+			}	
+		});
+		
+		
+		$("button.sendcmt").live('click',function(){
+			var qid=this.id;
+			var content=$.trim($("#input_"+qid).val());
+			if(content=='添加回复'||content==""||content==null){
+				ui.error("未输入评论");
+				return false;
+			}
+			var isprivate=document.getElementById("pri_"+qid);
+			if(isprivate.checked==true){	isprivate=1;	}else{ 	isprivate=0;	}
+			
+			$.get('__URL__&act=comment&comment='+content+'&qid='+qid+'&isprivate='+isprivate,function(data){
+				if(data==1){
+					ui.success('恭喜你回复成功~<font color="red">经验+5</font>');
+					$("div[id='"+qid+"'] ul").empty();
+					$("#input_"+qid).css("height","20px");
+					$("#input_"+qid).val('添加回复');
+					getJSONComment(qid);
+					$("div[id='"+qid+"']").slideDown("slow");
+				}else if(data==2){
+					ui.error('回复失败，请稍后再试');
+				}
+			});
+
+		});
+		
+		$("#btnsub").click(function(){
+			var qus=$.trim($("#questionarea").val());    	//前台登陆验证  若文本是空格$.trim()
+			if(qus==null||qus==""){
+				ui.error("未输入问题！");
+				return false;
+			}
+		});	
+	});
+</script>
+{:Addons::hook('weibo_js_plugin')} 
+<include file="__THEME__/footer" />

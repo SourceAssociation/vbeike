@@ -1,0 +1,7 @@
+1.将TodayStar文件夹放到/addons/plugins/下
+2.修改apps/home/Tpl/default/User/index.html：
+29行下面添加后有备注的一行代码  
+{:Addons::hook('home_index_right_toplist')}<!--今日之星-->
+{:Addons::hook('home_index_right_top')}
+<div class="right_box lineS_btm">
+3.进入后台->插件->待安装插件->今日之星，进行插件安装。

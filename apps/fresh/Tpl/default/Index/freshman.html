@@ -1,0 +1,136 @@
+<include file="__THEME__/header" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/weibo.js"></script>
+<link href="../Public/baogao.css" rel="stylesheet" type="text/css">
+<div class="content_holder">
+<include file="../Public/_mainNav" />
+<div class="content"><!-- 内容 begin  -->
+  <div class="main no_l">
+    <div class="mainbox boxspace" style="background-image:url(../Public/images/vbeike_bg_last.png);background-repeat:repeat;">
+      <div class="mainbox_appR" style="width:250px;float:right;padding:3px;">
+		<div id="baogao_jiyu">
+				<ul>
+					<li>新</li>
+					<li>生</li>
+					<li>寄</li>
+					<li>语</li>
+				</ul>
+		</div>
+			<div id="jiyu_content">
+			</div>
+			<div id="baogao_guide">
+			<p>
+				1. 请按入学通知书规定日期报到。<br>
+				 
+				普通新生报到：2012年8月27日～28日，7∶00～23∶00，地点：北京科技大学校内篮球场。
+			</p>	
+			<br>
+<p>			
+				2. 须携带证件及材料<br>
+				 
+				（1）录取通知书、身份证、准考证（新生党员报到时需携带组织关系介绍信）； <br>
+				（2）本人近期免冠半身正面1寸照片8张。
+			</p>
+			<p>
+			<br>
+				3. 报到详细要求（参照攻略文档）<br>
+					<a href="../Public/freshman.pdf" target="_blank"> <font color='red'>Vbeike新生攻略~报到</font></a>
+			</p>
+			<br>
+			<p>
+				4. <font color='red'>入学英语分级考试</font>安排（考试时间：2012年8月28日（周二）下午3：00 -5：00）<br>
+				<a href="../Public/english.xls" style="color:red;">2012英语分级考试安排</a>
+			</p>
+			</div>
+			<div id="guide_nav">
+				<ul>
+					<li>报</li>
+					<li>到</li>
+					<li>指</li>
+					<li>南</li>
+				</ul>
+			</div>
+	    <div class="clear" style="clear:both;margin:0;parding0;height:0px;font-size:0px;"></div>
+      </div>
+      <div class="mainbox_appC boxspace_L" >
+        {:Addons::hook('home_topic_detail_left_top')}
+        <if condition="$topics['topic_id']">
+        <div class="topics_info">
+          <if condition="$topics['pic']"><img alt="#{$topics.name}#" src="thumb.php?url={:SITE_URL}/data/uploads/{$topics.pic}&w=625&h=170" /></if>
+          <dl class="topics_info_dl">
+            <dt>#{$topics.name}#</dt>
+            <dd>{$topics.content}<if condition="$topics['link']"><a href="{$topics.link}" target="_blank">&gt;&gt;详细</a></if></dd>
+          </dl>
+        </div>
+        </if>
+        {:Addons::hook('home_topic_detail_left_middle')}
+        <div class="talkBox" style="height:160px">
+          <form method="post" action="{:U('weibo/operate/publish')}" id="miniblog_publish" class="formObj" oncomplete="false">
+            <input type="hidden" name="publish_type" value="0">
+            <h2>
+              <div class="wordNum numObj"></div>
+              <span>快来报到吧……</span></h2>
+            <div class="cntBox">
+              <input type="button" disabled="true" class="btn_big_disable hand buttonObj" value="&nbsp;" id="publish_handle"  />
+              <textarea name="content" id="content_publish" class="contentObj" cols="" rows="" style="width:85%;max-width:85%;min-width:85%;height:55px;max-height:55px;min-height:55px;*height:52px;padding:5px; margin:0; _padding:5;overflow: hidden;overflow-x:hidden;overflow-y:auto;line-height:18px">#{$topics.name}#</textarea>
+              <div class="txtShadow" style="z-index:-1000"></div>
+            </div>
+                  <div class="funBox">
+                    <php>if(Addons::requireHooks("home_index_middle_publish")){</php>
+                    <div class="right" style="padding-bottom:5px; cursor:hand;width:80px; cursor:pointer"  onclick='weibo.showAndHideMenu("Sync", this, "", "");'>
+                        同步<a href="#" class="ico_sync_on"></a>
+                    </div>
+                    <div id="Sync" style="display:none;position:absolute;right:23px;top:30px;z-index:9999">
+                        <div class="topic_app"></div>
+                        <div class="pop_inner">
+                                    {:Addons::hook('home_index_middle_publish')}
+                        </div>
+                    </div>
+                    <php>}</php>
+                  <div id="publish_type_content_before" class="left">
+                    {:Addons::hook('home_index_middle_publish_type',array('position'=>'other'))}
+                  </div>
+            </div>
+          </form>
+        </div>
+        <div class="tab-menu"><!-- 切换标签 begin  -->
+          <ul>
+            <li><a href="###" class="on feed_item"><span>最新Freshman~</span></a></li>
+          </ul>
+        </div>
+        <div class="MenuSub alR">
+        	<span class="left cGray">该话题共有"<span class="cRed">{$list.count}</span>"条相关微博</span>
+	        <volist name="weibo_menu" id="vo"><php>if ($i > 1) {</php>|<php>}</php><a
+	        href="{:U('home/user/topics', array('k'=>urlencode($search_key),'type'=>$key))}" 
+	        <eq name="type" value="$key">class="on"</eq>>{$vo}</a></volist>
+	    </div>
+        <div class="feedBox">
+          {:W('WeiboList', array('mid'=>$mid, 'list'=>$list['data'], 'insert'=>1))}
+        </div>
+        <div class="c"></div>
+        <div class="page">{$list.html}</div>
+        {:Addons::hook('home_topic_detail_left_bottom')}
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+</div>
+<script>
+var weibo = $.weibo({
+    initForm:false
+    });
+var default_string = "#{$topics.name}#";
+weibo.initForm("miniblog_publish",{       
+        enter:function(formObj,buttonObj,contentObj,numObj,txt){
+        	var content = $('#content_publish').val();
+        	var isTopics = content.search(default_string);
+        	if(isTopics != -1) {
+	            $('#feed_list').prepend( txt ).slideDown('slow');
+        	}
+            contentObj.val(default_string);
+        }
+   });
+</script>
+{:Addons::hook('weibo_js_plugin')}
+<include file="__THEME__/footer" /> 

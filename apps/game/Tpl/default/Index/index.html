@@ -1,0 +1,41 @@
+<include file="__THEME__/header" />
+<link href="../Public/css/game.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/js/pagination/pagination.css" rel="stylesheet" type="text/css" />
+
+<!-- 头部 end -->
+<div class="content no_bg">
+    <div class="page_tit"> <!-- page_title begin -->
+		<h2><img src="{$ts['app']['icon_url']}" />游戏</h2>
+		<div class="c"></div>	 
+	</div><!-- page_title end -->
+	<div class="main no_l lefts"> <!-- 右侧内容 begin  -->
+        <div class="tab-menu"><!-- 切换标签 begin  -->
+			<ul>
+                <li><a href="{:U('game/Index/index')}"  <eq name="who" value=""> class="on"</eq>><span>所有游戏</span></a></li>
+                <li><a href="{:U('game/Index/index', array('who'=>'me'))}" <eq name="who" value="me"> class="on"</eq>><span>我玩过的</span></a></li>
+                <li><a href="{:U('game/Index/index', array('who'=>'friend'))}" <eq name="who" value="friend"> class="on"</eq>><span>我关注的人玩过的</span></a></li>
+			</ul>
+		</div><!-- 切换标签 end  -->
+			<div class="MenuSub">
+			<volist name="type" k="key" id="vo">
+			     <a href="{:U('game/Index/index', array('cid'=>$key))}" <php>if($_GET['cid'] == $key){</php> class="fB" <php>}</php>>{$vo}</a>
+			      <php>if($key!=count($type)){</php>┊<php>}</php>
+			</volist>
+            </div>
+        <div class="gameBox">
+				<ul class="piclist">
+				<volist name="data" id="vo">
+					<li>
+                    <a href="{:U('game/Index/gameplay', array('gid'=>$vo['fgid']))}"><img src="../Public/images/app/{$vo['icon']}.gif" /></a><br />
+					<a href="{:U('game/Index/gameplay', array('gid'=>$vo['fgid']))}">{$vo['fgname']}</a>       	  
+				  </li> 
+				</volist>
+                <div class="c"></div>
+				</ul>
+    </div>
+		<div id="Pagination" class="pagination">{$html}</div>
+  </div><!-- 右侧内容 end  -->
+  </div>
+  <div class="c"></div>
+  </div><!-- 内容 end -->
+<include file="__THEME__/footer" />

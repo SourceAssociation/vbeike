@@ -1,0 +1,207 @@
+<!--引入系统头文件-->  
+<include file="__THEME__/header" />  
+ 
+<!--引入样式文件区-->  
+<!--引入JS  文件区-->  
+ 
+<!--引入应用头文件-->  
+<include file="../Public/_mainNav" />
+ 
+<!-- 内容begin  -->  
+<div class="content">  
+  <div class="main no_l">  
+  <div class="mainbox">  
+<!-- 画布begin  -->  
+        <div class="mainbox_C no_r"> 
+		<div class="test" style="font-size:20px;align:center;">
+			<a href="{:U('/Index/index',array('a'=>'d'))}" target="_blank"><img src={$ts['app']['icon_url']} />测试应用主页</a>
+			<a href="{:U('/Index/freshman')}" target="_blank"><img src="{$ts['app']['icon_url']}"/>新生攻略主页</a>
+			
+			<div>
+				<div class="userPic"><a title="" href="{:U('home/Space/index',array('uid'=>$mid))}">
+	                <img src="{$mid|getUserFace='m'}" card="1">
+					</a>
+					<p><space uid="$mid" class="fn">{:getUserFace($mid)}</space></p>
+				</div>
+				<a href="javascript:ui.sendmessage(1)">发私信</a>
+				<a href="http://127.0.0.1/sns2.8/index.php?app=home&amp;mod=Space&amp;act=index&amp;uid=1" rel="face" uid="1" class="fn" target="_self">admin_ts</a>
+			</div>
+			<br><br><br>
+			<image src="__THEME__/images/v_05.gif"/>
+			<image src="__THEME__/images/v_05.gif"/>
+			
+			<br><br>
+				<br>
+				{$faces}
+				<br>
+				<php>
+					echo __THEME__.'<br>';
+					echo rand(0,10);
+					echo "<br>";
+					$is_logged=service('Passport')->isLogged();   //services
+					echo $is_logged;
+					//$areas=model('Area')->getAreaList();
+					//print_r($areas);
+					echo "<br>";
+					echo APP_PATH;
+				</php>
+				<button id="btn">clickme</button><button id="close">closebox</button>
+				{:getUserName($uid);}   
+				<br>
+				{:W('SelectFriends');}
+				<br>
+				{:W('Comment');}
+				<br>
+				{:__URL__;}   {:APP_PATH;}
+				<script>
+					$(document).ready(function(){
+						$("#btn").bind('click',function(){
+							ui.box.load('index.html',{'title':'dadfsaf'});
+						});
+						
+						$("#close").click(function(){
+							//ui.box.close();
+							success();
+						});
+						function success(){
+							ui.success("chenggong");
+						}
+						function failed(){
+							ui.error("failed");
+						}
+						
+					});
+				</script>
+				<br>
+				<br>
+				<include file="__THEME__/editor"/>
+				<textarea id="idOfTextArea" style="width:650px;height:350 px"></textarea>
+				<script>  
+					$(document).ready(function(){  
+					  loadEditor("idOfTextArea"); 
+					});  
+				</script>
+				<br>
+				<div class="ke- post">{$content}</div> 
+			<!-- <php> 
+				echo "测试参数：".ACTION_NAME."   "; 
+				echo $mid."   ".$uid."<br>";
+				echo "传递参数: ".$_GET['a']."<br>";
+				print_r($ts['app']);
+				echo "<br>";
+				echo "THEME IS: "."__THEME__";
+				echo "<br>";
+				echo "SITE_PATH IS: ".SITE_PATH."<br>";
+				print_r(getConfig());    //获取配置参数 可能需要配置
+				echo "<br>";
+				//getMenuState('index/index');
+				print_r($userInfoCache);
+				echo "<br>";
+				//echo md5("littlebear");
+				echo getUserFace($mid);
+				echo "<br>";
+			</php>
+			
+			<space uid="mid" class="nocard">{uavatar}</space>
+			<img src="{$ts['app']['icon_url']}"/>{$ts['app']['app_alias']} -->
+			<div>
+			<button id="weibotest" onclick="weibo()" >微博发布测试</button>
+			</div>
+			<br>
+			<php>echo __URL__;
+			echo "<br>";
+			echo ACTION_NAME."<br>";
+			echo __ACTION__."<br>";
+			echo __URL__."<br>";
+			echo __PUBLIC__."<br>";
+			//print_r($userInfoCache);
+			$money=X('Credit')->getUserCredit($mid);
+			//print_r($money);
+			
+			$tpl_data=urlencode(serialize(array(
+				'url'=>U('fresh/Index/question'),
+			)));
+			</php>
+			{:W('Weibo',array('tpl_name'=>'send_question','button_title'=>'分享'))}
+			<script>
+				function weibo(){
+						_widget_weibo_start('', '{$tpl_data}');
+					}
+				$(document).ready(function(){
+					function weibo(){
+						_widget_weibo_start('', '{$tpl_data}');
+					}
+				});
+			</script>
+			<div>
+						<php>
+							//$db=new Model('answer');
+							//$res=$db->select();
+						//	print_r($res);
+						</php>
+			</div>
+		</div>
+		<br>
+		{:getUserFace($mid);}
+</div>  
+		<p>
+			<a title="" href="javascript:void(0)" onclick="weibo.quickpublish(' @小秘书 ')">
+				<img style="height:60px;width:170px;float:none;margin:0px;" alt="" src="http://t.thinksns.com/data/uploads/2012/0315/16/4f61a35f66650.png">
+			</a>
+		</p>		
+	<a href="javascript:void(0)" onclick="weibo.quickpublish('#签到# ')">我也说几句&gt;&gt;</a>
+
+	
+	
+<!-- 画布end   -->  
+  <div class="c"></div><!--分隔层-->  
+    </div>  
+</div>  
+</div>  
+<!-- 内容end -->  
+
+<!--引入系统尾文件-->  
+{:Addons::hook('weibo_js_plugin')} 
+<include file="__THEME__/footer" />
+
+
+
+
+<script>
+$(document).ready(function(){
+	$(".header_dropdown").hover(
+		function(){ $(this).addClass("hover"); },
+		function(){ $(this).removeClass("hover"); }
+	);
+	$("div#navi-main").bind('mouseout',function(){
+		$("div#navigator").animate({'width':"10px"});
+	});
+	$("div#navi-left").bind('mouseover',function(){
+		$("div#navigator").animate({'width':"140px"});
+	});
+});
+
+var weibo = $.weibo({
+      sinceId: parseInt('36'),
+      
+	        timeStep : 30000,
+      initForm:true,
+      
+      lastId:parseInt('62'),
+      show_feed:parseInt(''),
+      follow_gid:parseInt('all'),
+      gid:parseInt('0'),
+      weiboType:'',
+      type:parseInt('0'),
+      typeList:{
+          WEIBO:parseInt(0),
+          GROUP:parseInt(1),
+          ALL:parseInt(2)
+      }
+});
+	
+function close_announcement() {
+	$('#announcement').hide('slow');
+	$.post("http://127.0.0.1/sns2.8/index.php?app=home&mod=User&act=closeAnnouncement",{},function(res){});
+}
+</script>

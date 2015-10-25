@@ -1,0 +1,28 @@
+ <div class="right_box">
+
+      <h2>今日之星</h2>
+      <ul class="fans_toplist">
+        <volist id="vo" name="data">
+          <php>if($key>2){ $class='no'; }else{ $class='no top'.($key+1); }</php>
+          <li>
+            <em class="{$class}">{$key+1}</em>
+            <a href="{:U('home/space/index',array('uid'=>$vo['uid']))}"><img src="{$vo.uid|getUserFace}" class="userFace"/></a>
+            <div>
+                <space uid="vo.uid" class="OverH nam ">{uname}</space>
+                <p><span>{$vo.count}</span>今日活跃指数</span>
+            </div>
+          </li>
+        </volist>
+		<php>
+		    $i=5-count($data);$m=1;while($i>=$m){
+		</php>
+		 <php> $class='no top'; </php>
+         <li>
+            <em class="{$class}">?</em>
+            <div>
+                等您上榜
+            </div>
+          </li>
+		<php>$m++;}</php>
+      </ul>
+    </div>

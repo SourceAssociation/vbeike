@@ -1,0 +1,27 @@
+<include file="../Public/header" />
+<div class="userinfo">
+
+    <td valign="top"><img src="{$profile['face']}" alt="头像" class="por" /></td>{$profile['uname']}
+
+</div>
+<h2><php>echo $ts['user']['sex']==1?'他':'她';</php>在做什么？</h2>
+<include file="../Public/weibolist" />
+<div>
+    <php>
+        $has_pre   = $page > 1;
+        $has_after = count($weibolist) >= $item_count;
+    </php>
+    <php>if($has_pre) {</php>
+    <a href="{:U('wap/Index/weibo',array('uid'=>$_GET['uid'],'page'=>$page-1))}">上页</a>
+    <php>}</php> 
+    <php>if($has_after) {</php>
+    <a href="{:U('wap/Index/weibo',array('uid'=>$_GET['uid'],'page'=>$page+1))}">下页</a>
+    <php>}</php>
+    <php>if($has_pre || $has_after) {</php>
+    <form action="{:U('wap/Index/weibo',array('uid'=>$_GET['uid']))}" method="post">
+    <input type="text" name="page" size="2" />
+    <input type="submit" value="跳页" /> 第{$page}页
+    </form>
+    <php>}</php>
+</div>
+<include file="../Public/footer" />

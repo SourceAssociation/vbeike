@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<link href="../Public/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="keywords" content="{$ts['site']['site_header_keywords']}" />
+<meta name="description" content="{$ts['site']['site_header_description']}" />
+<link rel="icon" href="../Public/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="../Public/favicon.ico" type="image/x-icon"/>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=2.0"/>
+<meta name="MobileOptimized" content="240"/>
+<title>{$ts['site']['site_name']} | WAP版</title>
+<link href="../Public/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="top">北科微博 {$ts['site']['site_name']}</div>
+<div class="addtbox"> 
+    <form action="{:U('wap/Public/doLogin')}" method="post">
+	邮箱：<br />
+	<input type="text" name="email"/><br />
+    密码：<br />
+	<input type="text" name="password" /><br />
+    <input type="checkbox" name="remember" checked="checked" value="1"/>下次自动登录<br/>
+    <input type="submit" name="submit" value="登录" /> 
+    <!--<eq name="is_register_open" value="1">
+        <php>$register_url = U('/Public/register');</php> 
+        <input type="button" name="" value="注册" onclick="window.location.href='{$register_url}'" />
+    </eq>-->
+        <!--<php>$sina_login_url = U('home/Widget/addonsRequest', array('addon'=>'Login', 'hook'=>'login_on_client', 'type'=>'sina'));</php> 
+        <input type="button" name="" value="新浪登录" onclick="window.location.href='{$sina_login_url}'" />-->
+    </form>
+</div>
+<div>
+<p>没有帐号？<a href="{:U('/Public/register')}">&nbsp&nbsp&nbsp注册</a></p>
+<p><strong>{$ts['site']['site_name']}&nbsp微北科掌上交流平台。</strong></p>
+<p>随时随地发微博</p>
+<p>时时刻刻看朋友</p>
+<br />
+<a href="{:U('wap/Public/wapToNormal')}">电脑版</a> | <a href="./index.php?app=w3g">体验3G版</a>
+</div>
+<div id="ft">
+<p>[{:gmdate('m月d日 H:i',time()+8*3600)}]</p>
+<p>&copy; 2012 Wbeike.com</p></div>
+</body>
+</html>

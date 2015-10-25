@@ -1,0 +1,26 @@
+@charset "utf-8";
+/*
+游戏
+*/
+
+.page_title h2 img { height:24px; width:24px; float:left; margin-right:5px }
+.page_title h2 { font-size:14px; color:#000000; font-weight:bold; line-height:25px; height:25px; clear:both }
+.page_title p { padding: 0px; margin-top: 5px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; line-height: 20px; }
+.gameBox { clear:both; overflow:hidden; }
+.gameBox h1{ font-size: 14px; line-height: 30px; background-color: #F7F7F7; padding-left: 5px; font-weight: bold; }
+.piclist { clear: both; overflow: hidden; width: 100%; border-bottom: 1px solid #BBC1CC; padding: 10px 0 0 0px; marginp: 1px 0 0 0px; }
+.piclist li { float: left; height: 120px; overflow: hidden; width: 140px; text-align: center; margin-top: 5px; }
+.piclist li img { padding: 2px; margin-bottom: 5px; background-color: #FFFFFF; height: 90px; width: 120px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; }
+
+.ph_list{ border: 1px solid #cccccc; width: 210px;}
+.ph_list dl{ margin: 0px; padding: 0px; list-style-type: none; font-size: 12px; background-image: url(../images/list.gif); background-repeat: no-repeat;  background-position: 3px 40px; *background-position: 3px 38px;}
+.ph_list dl dt{ font-size: 12px; font-weight: bold; line-height: 30px;*margin:0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 5px; background-color: #eee; display: block; height: 30px; overflow: hidden; }
+
+.ph_list dl dd{ line-height: 29px; padding-left: 25px; height: 29px; overflow: hidden; display: block; margin: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; clear: both; }
+.ph_list dl dd a{ width: 120px; overflow: hidden; white-space: nowrap; float: left; }
+.ph_list dl dd span{ float: right; width: 60px; color: #999; } 
+
+
+
+/*操作说明宽度*/
+.wid{width:620px;overflow:hidden;}

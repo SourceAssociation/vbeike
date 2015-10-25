@@ -1,0 +1,340 @@
+<include file="__THEME__/header" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/weibo.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.autocomplete.js"></script>
+<script src="../Public/js/slides.min.jquery.js"></script>
+<div class="content_holder"> 
+<div class="content"><!-- 内容 begin  --> 
+  <include file="__THEME__/apps" />
+  <div class="main">
+    <div class="mainbox">
+	 <div class="mainbox_R">
+		<volist name="ts['ad']['right_top']" id="vo">
+		<div class="ke-post setskinbox lineS_btm">
+			{$vo['content']}
+		</div>
+		</volist>
+		  {:Addons::hook('home_index_right_top')}
+        <div class="right_box lineS_btm">
+          <h2><a href="javascript:void(0)" onclick="$('.quick_win').show()" class="right" style="font-weight:400;font-size:12px">添加</a>关注的话题</h2>
+          <div style="display:none;" class="quick_win">
+            <a href="javascript:void(0)" onclick="$('.quick_win').hide()" class="del" title="关闭"></a>
+            <p>
+              <input type="text" class="text" name="quick_name" style=" width:130px;display:block;margin:0 0 5px 0"/>
+              <input type="button" onclick="addFollowTopic()" value="保存" class="btn_b" />
+            </p>
+            <p class="cGray2">请添加想关注的话题</p>
+          </div>
+          <ul class="topic_list" rel="followTopicArea">
+            <volist id="vo" name="followTopic">
+              <li onmouseover="$(this).find('.del').show()" onmouseout="$(this).find('.del').hide()"><a class="del right" style="display:none" title="删除" href="javascript:void(0)" onclick="deleteFollowTopic(this,'{$vo.topic_id}')"></a><a href="{:U('home/user/topics',array('k'=>urlencode($vo['name'])))}" title="{$vo.name}">{$vo.name}</a></li>
+            </volist>
+          </ul>
+        </div>
+        <div class="right_box">
+          {:W('HotTopic', array('type'=>'recommend','limit'=>5))}
+          <php>if(ACTION_NAME == "index"){</php>
+          {:W('HotTopic', array('type'=>'auto','limit'=>5))}
+          <php>}</php>
+        </div>
+          {:Addons::hook('home_index_right_bottom')}
+        <php>if (Addons::requireHooks('home_index_right_advert')) {</php>
+        	{:Addons::hook('home_index_right_advert', array($ts['ad']['right']))}
+        <php>} else {</php>
+			<volist name="ts['ad']['right']" id="vo">
+			<div class="ad_right"><div class="ke-post lineS_btm">{$vo.content}</div></div>
+			</volist>
+		<php>}</php>
+      </div>
+		<div class="mainbox_C main_pad">
+				<div class="tab-menu">
+              <ul>
+                <li><a href="" class="on"><span>校园链接</span></a></li>
+              </ul>
+           </div>
+		   <div class="MenuSub ">
+	      <span class="right pr5"></span>
+			<hr>
+			
+			<div id="wbeike-links" style="margin-top:5px;">
+				<table cols="4" id="beike_links" cellpadding="11px" width="565px" style="margin-top:5px;">
+				<tr class="links_type" style="color:blue;">
+					<td style="font-size:18px;">高校互联</td>
+					<td style="font-size:18px;">学术.科学</td>
+					<td style="font-size:18px;">校内导航</td>
+					<td style="font-size:18px;">网站导航</td>
+				</tr>
+					<tr> 
+						<td>
+							<ul class="menu">
+								<li>
+									<a href="http://localhost/dzx2.5" target="_blank"><font color=red>爱北科社区</font></a></li>
+								<li>
+									<a href="http://www.265.com/Xiaoyuan_Gaoxiao/" target="_blank">中 国 大 学</a></li>
+								<li>
+									<a href="http://hi.baidu.com/bochunbo/blog/item/44e195021b01cf0f4bfb51db.html" target="_blank">国外著名大学</a></li>
+								<li>
+									<a href="http://www.bdpt.net/pt/forum.php" target="_blank"><b><font color=red>北大博雅</a></b></a></li>
+								<li>
+									<a href="http://bt.ruc6.edu.cn" target="_blank"><b><font color=red>品知人大</a></b></a></li>
+								<li>
+									<a href="http://live.sdu6.edu.cn/forum.php" target="_blank"><b><font color=red>学生之家</a></b></a></li>
+								<li>
+									<a href="http://www.ipv6home.cn/html/bbs.html" target="_blank"><b><font color=red>IPV6之家</a></b></a></li>
+								<li>
+									<a href="http://hometown.scau.edu.cn/bbs/forum.php" target="_blank"><b><font color=red>红满堂</a></b></a></li>
+								<li>
+									<a href="http://6world.szu.edu.cn/" target="_blank"><b><font color=red>深大IPv6</a></b></a></li>
+								<li>
+									<a href="ftp://ftp6.sjtu.edu.cn/" target="_blank"><b><font color=red>上交大FTP</a></b></a></li>
+								<li>
+									<a href="ftp://movie.ipv6.scau.edu.cn/Movies/" target="_blank"><b><font color=red>华农电影</a></b></a></li>
+								</ul>
+						</td>
+						<td>
+							<ul class="menu">
+								<li>
+									<a href="http://www.nlc.gov.cn/" target="_blank">国家图书馆</a></li>
+								<li>
+									<a href="http://union.csdl.ac.cn/index.jsp" target="_blank">中国期刊网</a></li>
+								<li>
+									<a href="http://dlib.edu.cnki.net/kns50/" target="_blank">中国知网</a></li>
+								<li>
+									<a href="http://www.nstl.gov.cn/" target="_blank">文献中心</a></li>
+								<li>
+									<a href="http://scholar.google.com/" target="_blank">学术搜索</a></li>
+								<li>
+									<a href="http://www.core.org.cn" target="_blank">教育资源共享</a></li>
+								<li>
+									<a href="http://lib.ustb.edu.cn/Article/ShowClass.asp?ClassID=20" target="_blank">多媒体资源</a></li>
+								<li>
+									<a href="http://www.863.gov.cn/" target="_blank">863计划</a></li>
+								<li>
+									<a href="http://www.nsfc.gov.cn/Portal0/default152.htm" target="_blank">自然科学基金</a></li>
+								<li>
+									<a href="http://bbs.techyou.org/" target="_blank">Techyou</a></li>
+								<li>
+									<a href="http://www.abcdfree.com/" target="_blank">ABCDfree</a></li>
+							</ul>
+						</td>
+						<td>
+						<ul class="menu">
+								<li>
+									<a href="http://www.ustb.edu.cn/" target="_blank">北科大主页</a></li>
+								<li>
+									<a href="http://mail.ustb.edu.cn/" target="_blank">学校邮箱</a></li>
+								<li>
+									<a href="http://oa.ustb.edu.cn/" target="_blank">校园OA</a></li>
+								<li>
+									<a href="http://city.ibeike.com/" target="_blank">爱北科</a></li>
+								<li>
+									<a href="http://www.52v6.com/ptflicker/" target="_blank">我爱V6</a></li>
+								<li>
+									<a href="http://iptv.bupt.edu.cn/" target="_blank">电视直播V6</a></li>
+								<li>
+									<a href="http://bt.neu6.edu.cn/" target="_blank">六维空间</a></li>
+								<li>
+									<a href="http://pt.ibeike.com/" target="_blank">贝壳资源下载</a></li>
+								<li>
+									<a href="http://djvod.ustb.edu.cn" target="_blank">数字教学平台</a></li>
+								<li>
+									<a href="http://live.ustb.edu.cn:88/login.aspx" target="_blank">校内直播频道</a></li>
+								<li>
+									<a href="http://info.ustb.edu.cn/aqfh/" target="_blank">校内杀毒软件</a></li>
+								</ul>
+								
+						</td>
+						<td>
+							<ul class="menu">
+								<li>
+									<a href="http://www.google.com.hk/" target="_blank">谷歌google</a></li>
+								<li>
+									<a href="http://www.baidu.com" target="_blank">百度baidu</a></li>
+								<li>
+									<a href="http://www.renren.com/" target="_blank">人人网</a></li>
+								<li>
+									<a href="http://www.kaixin001.com/" target="_blank">开心网</a></li>
+								<li>
+									<a href="http://www.tianya.cn/bbs/" target="_blank">天涯社区</a></li>
+								<li>
+									<a href="http://www.yinyuetai.com/" target="_blank">音悦台</a></li>
+								<li>
+									<a href="http://www.qingtin.com/" target="_blank">倾听网络</a></li>
+								<li>
+									<a href="http://www.cntv.cn/" target="_blank">网络电视台</a></li>
+								<li>
+									<a href="http://www.pptv.com/" target="_blank">PPTV</a></li>
+								<li>
+									<a href="http://www.youku.com/" target="_blank">优酷youku</a></li>
+								<li>
+									<a href="http://www.tudou.com/" target="_blank">土豆tudou</a></li>
+							</ul>
+						</td>
+					</tr>
+				<br>
+					
+				<tr class="links_type" style="color:blue">
+					<td style="font-size:18px;">分门别类</td>
+					<td style="font-size:18px;">为您服务</td>
+					<td style="font-size:18px;">随便看看</td>
+					<td style="font-size:18px;">门户导航</td>
+				</tr>
+					<tr>
+						<td>
+							<ul class="menu">
+								<li>
+									<a href="http://www.kktravel.com/" target="_blank">行走亚洲</a></li>
+								<li>
+									<a href="http://www.xitek.com/" target="_blank">色影无忌</a></li>
+								<li>
+									<a href="http://bbs.fengniao.com/forum/" target="_blank">蜂鸟论坛</a></li>
+								<li>
+									<a href="http://www.deepin.org/" target="_blank">深度论坛</a></li>
+								<li>
+									<a href="http://benyouhui.it168.com/" target="_blank">本友会</a></li>
+								<li>
+									<a href="http://apple.178.com/" target="_blank">APPLE 论坛</a></li>
+								<li>
+									<a href="http://bbs.hiapk.com/" target="_blank">Android 论坛</a></li>
+								<li>
+									<a href="http://www.jd-bbs.com/forum.php" target="_blank">家电论坛</a></li>
+								<li>
+									<a href="http://club.xialala.com/" target="_blank">极品音乐</a></li>
+								<li>
+									<a href="http://www.erji.net/ " target="_blank">耳机大家坛</a></li>
+								<li>
+									<a href="http://bbs.neupioneer.com/" target="_blank">先锋论坛</a></li>
+								<li>
+									<a href="http://www.mydrivers.com/" target="_blank">驱动之家</a></li>
+								</ul>
+						</td>
+						<td>
+							<ul class="menu">
+								<li>
+									<a href="http://www.zhaopin.com/" target="_blank">智联招聘</a></li>
+								<li>
+									<a href="http://www.chinahr.com" target="_blank">中华英才</a></li>
+								<li>
+									<a href="http://email.163.com/" target="_blank">网易邮箱</a></li>
+								<li>
+									<a href="http://translate.google.cn/" target="_blank">在线翻译</a></li>
+								<li>
+									<a href="http://www.12306.cn/mormhweb/" target="_blank">铁路服务</a></li>
+								<li>
+									<a href="http://www.bcia.com.cn/" target="_blank">首都机场</a></li>
+								<li>
+									<a href="http://www.qunar.com/" target="_blank">去哪儿</a></li>
+								<li>
+									<a href="http://www.taobao.com/" target="_blank">淘宝网</a></li>
+								<li>
+									<a href="http://www.360buy.com/" target="_blank">京东商城</a></li>
+								<li>
+									<a href="http://www.amazon.cn/" target="_blank">卓越亚马逊</a></li>
+								<li>
+									<a href="http://www.dangdang.com/" target="_blank">当当网</a></li>
+								<li>
+									<a href="http://www.t3.com.cn/" target="_blank">中演票务网</a></li>
+								</ul>
+						</td>
+						<td>
+							<ul class="menu">
+								<li>
+									<a href="http://www.cngadget.cn/" target="_blank">玩意儿</a></li>
+								<li>
+									<a href="http://www.fanfancan.com/" target="_blank">翻翻看</a></li>
+								<li>
+									<a href="http://vld.sina.cn/" target="_blank">微领地</a></li>
+								<li>
+									<a href="http://www.u148.net/" target="_blank">有意思吧</a></li>
+								<li>
+									<a href="http://www.evolife.cn/" target="_blank">爱活网</a></li>
+								<li>
+									<a href="http://www.kooideas.com/" target="_blank">酷品网</a></li>
+								<li>
+									<a href="http://www.if-g.com/" target="_blank">绿色播报</a></li>
+								<li>
+									<a href="http://bbs.hunanren.org/" target="_blank">同湘会</a></li>
+								<li>
+									<a href="http://www.imobile.com.cn/" target="_blank">手机之家</a></li>
+								<li>
+									<a href="https://bbs.hdchina.org/default/index.php" target="_blank">高清第一站</a></li>
+								<li>
+									<a href="http://www.dzdiy.com/" target="_blank">电子制作天地</a></li>
+								<li>
+									<a href="http://www.23ps.com/" target="_blank">图片处理网</a></li>
+								</ul>
+						</td>
+						<td>
+							<ul class="menu">
+									<li>
+										<a href="http://www.xinhuanet.com/" target="_blank">新华网</a></li>
+									<li>
+										<a href="http://www.ifeng.com/" target="_blank">凤凰网</a></li>
+									<li>
+										<a href="http://cn.msn.com/" target="_blank">MSN中文网</a></li>
+									<li>
+										<a href="http://www.qq.com/" target="_blank">腾讯网</a></li>
+									<li>
+										<a href="http://www.163.com/" target="_blank">网易</a></li>
+									<li>
+										<a href="http://www.sina.com.cn/" target="_blank">新浪</a></li>
+									<li>
+										<a href="http://www.sohu.com/" target="_blank">搜狐</a></li>
+									<li>
+										<a href="http://www.yahoo.cn/" target="_blank">雅虎</a></li>
+									<li>
+										<a href="http://www.aol.com/" target="_blank">AOL</a></li>
+									<li>
+										<a href="http://www.cbs.com/" target="_blank">CBS</a></li>
+									<li>
+										<a href="http://www.bbc.com/" target="_blank">BBC</a></li>
+									<li>
+										<a href="http://edition.cnn.com/" target="_blank">CNN</a></li>
+								</ul>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+	  </div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- 用@提到的人 end --> 
+<include file="__THEME__/footer" /> 
+<script>
+$(document).ready(function(){
+	$(".header_dropdown").hover(
+		function(){ $(this).addClass("hover"); },
+		function(){ $(this).removeClass("hover"); }
+	);
+});
+
+var weibo = $.weibo({
+      sinceId: parseInt('{$sinceId}'),
+      
+	  <php>if(ACTION_NAME=="index"){</php>
+      timeStep : 30000,
+      initForm:true,
+      <php>}</php>
+
+      lastId:parseInt('{$lastId}'),
+      show_feed:parseInt('{$show_feed}'),
+      follow_gid:parseInt('{$follow_gid}'),
+      gid:parseInt('{$gid}'),
+      weiboType:'{$weibo_type}',
+      type:parseInt('{$type}'),
+      typeList:{
+          WEIBO:parseInt(<php>echo UserAction::INDEX_TYPE_WEIBO;</php>),
+          GROUP:parseInt(<php>echo UserAction::INDEX_TYPE_GROUP;</php>),
+          ALL:parseInt(<php>echo UserAction::INDEX_TYPE_ALL;</php>)
+      }
+});
+	
+function close_announcement() {
+	$('#announcement').hide('slow');
+	$.post("{:U('home/User/closeAnnouncement')}",{},function(res){});
+}
+</script>
+{:Addons::hook('weibo_js_plugin')}

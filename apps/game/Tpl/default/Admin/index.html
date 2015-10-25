@@ -1,0 +1,79 @@
+<include file="public/admin/header.html" />
+<link href="__PUBLIC__/js/pagination/pagination.css" rel="stylesheet" type="text/css" />
+<link href="../Public/css/style.css" rel="stylesheet" type="text/css">
+        <script>
+        var TPIS = 0;
+        var MID = 0;
+            //delAll
+            function enable(id) {
+                var status = $('#enable'+id).attr('rel');
+                $.post(U('game/Admin/setEnable'),{id:id,fglev:status},function(result){
+                    if("-1" == result){
+                        alert('未知错误');
+                        return;
+                    }
+                    $('#enable'+id).attr('rel',result);
+                    if(1 == result){
+                        $('#enable'+id).text('不启用');
+                    }else{
+                    	$('#enable'+id).text('启用');
+                    }
+                    });
+            }
+        </script>
+		<div class="so_main">
+			<div class="page_tit">游戏</div>
+			<div class="tit_tab">
+				<ul>
+					<li><a class="on" href="#">浏览全部游戏</a></li>
+				</ul>
+			</div>
+			<div class="form">
+				<div class="sort">
+					<div class="tit">
+					<div class="c1">缩略图</div>
+					<div class="line_l c3">是否启用</div>
+					<div class="line_l c3">游戏名</div>
+					</div>
+				</div>
+				<div class="sort">
+                <volist name="data" id="vo">				
+					<div class="line">
+						<div class="c1"><img src="../Public/images/app/{$vo.icon}.gif" alt="" /></div>
+						<div class="c3"><php>if($vo["fglev"] == 0){</php><a id="enable{$vo.fgid}" href="javascript:void(0)" rel="1" onclick="enable({$vo['fgid']})">不启用</a><php>}else{</php><a id="enable{$vo.fgid}" href="javascript:void(0)" rel="0" onclick="enable({$vo['fgid']})">启用</a><php>}</php></div>
+						<div class="c3">{$vo.fgname}</div>
+						<div class="clear"></div>
+					</div>
+                </volist>					
+				</div>
+			</div>
+		</div>
+        <!--<div id="container">
+            <table class="tableborder" width="100%">
+                <tr>
+                    <td class="header" colspan="4">浏览全部游戏</td>
+                </tr>
+
+                <tr class="cell altbg2">
+                    <th width="20%" align="left">缩略图</th>
+                    <th width="30%" align="left">游戏名</th>
+                    <th width="20%" align="left">是否启用</th>
+                </tr>
+
+                <volist name="data" id="vo">
+                    <tr class="cell altbg1">
+                        <td>
+                            <img src="../Public/images/app/{$vo.icon}.gif" alt="" />
+                        </td>
+                        <td>{$vo.fgname}</td>
+                        <td><php>if($vo["fglev"] == 0){</php><a id="enable{$vo.fgid}" href="javascript:void(0)" rel="1" onclick="enable({$vo['fgid']})">不启用</a><php>}else{</php><a id="enable{$vo.fgid}" href="javascript:void(0)" rel="0" onclick="enable({$vo['fgid']})">启用</a><php>}</php></td>
+                    </tr>
+
+                </volist>
+
+                <tr class="cell altbg2">
+                </tr>
+            </table>
+                        <div id="Pagination" class="pagination">{$html} </div>
+        </div>-->
+<include file="public/admin/footer.html" />

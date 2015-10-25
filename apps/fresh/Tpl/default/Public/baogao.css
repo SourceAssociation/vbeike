@@ -1,0 +1,82 @@
+#baogao_jiyu{
+	position:relative;
+	top:3px;
+	right:2px;
+	width:30px;
+	height:100px;
+	cursor:default;
+	float:right;
+}
+#baogao_jiyu li{
+	display:block;
+	font-weight:bold;
+	text-align:center;
+	color:red;
+	font-size:20px;
+	border-bottom:1px dashed gray;
+	padding-bottom:4px;
+	list-style-type:none;
+	background-color:#20B2AA;
+}
+#jiyu_content{
+	background-image:url(../Public/images/yinxin2.jpg);
+	position:relative;
+	top:3px;
+	*top:-95px;
+	right:12px;
+	width:225px;
+	height:200px;
+	border:1px solid blue;
+}
+#jiyu_content img{
+	border:3px groove blue;
+}
+#baogao_guide{
+	font-family:Arial,Helvetica,sans-serif,Simsun;
+	width:230px;
+	margin:240px 5px 5px -20px;
+	position:relative;
+	bottom:175px;
+	*bottom:280px;
+	right:-8px;
+	float:left;
+	font-size:16px;
+}
+#guide_nav{
+	position:relative;
+	float:right;
+	width:30px;
+	height:100px;
+	top:65px;
+	*top:-40px;
+	cursor:default;
+	right:5px;
+}
+#guide_nav li{
+	display:block;
+	font-weight:bold;
+	text-align:center;
+	color:red;
+	font-size:20px;
+	border-bottom:1px dashed gray;
+	padding-bottom:2px;
+	list-style-type:none;
+	background-color:#20B2AA;
+}
+#baogao_guide dt{
+	width:50px;
+	height:50px;
+	float:left;
+	margin-top:5px;
+	margin-left:5px;
+	border:1px solid red;
+}
+#baogao_guide dd{
+	width:155px;
+	float:right;
+	height:50px;
+	margin-top:5px;
+	text-align:left;
+	margin-left:15px;
+	border:1px solid blue;
+}

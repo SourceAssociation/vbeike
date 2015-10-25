@@ -1,0 +1,152 @@
+<style type="text/css">
+body {
+ margin: 30px auto;
+ text-align:center;
+}
+ul {
+ list-style: none;
+}
+#faq {
+ font-size: 14px;
+ width: 800px;
+}
+#faq li {
+ margin: 0 0 10px;
+ padding: 0 0 5px;
+}
+#faq dl {
+ margin: 0;
+ padding:0;
+ display:inline;
+}
+#faq dt {
+ font-weight:bold;
+ font-size:20px;
+ cursor:pointer;
+ line-height: 20px;
+ padding: 0 0 10px 22px;
+ border-bottom:1px #ccc dotted;
+}
+#faq dd {
+ display:none;
+ margin:0;
+ padding: 5px 0 5px 20px;
+ background:#E5ECF9;
+ line-height: 180%;
+}
+</style>
+<script type="text/javascript">
+var lastFaqClick=null;
+window.onload=function(){
+  var faq=document.getElementById("faq");
+  var dls=faq.getElementsByTagName("dl");
+  for (var i=0,dl;dl=dls[i];i++){
+    var dt=dl.getElementsByTagName("dt")[0];//取得标题
+     dt.id = "faq_dt_"+(Math.random()*100);
+     dt.onclick=function(){
+       var p=this.parentNode;//取得父节点
+        if (lastFaqClick!=null&&lastFaqClick.id!=this.id){
+          var dds=lastFaqClick.parentNode.getElementsByTagName("dd");
+          for (var i=0,dd;dd=dds[i];i++)
+            dd.style.display='none';
+        }
+        lastFaqClick=this;
+        var dds=p.getElementsByTagName("dd");//取得对应子节点，也就是说明部分
+        var tmpDisplay='none';
+        if (gs(dds[0],'display')=='none')
+          tmpDisplay='block';
+        for (var i=0;i<dds.length;i++)
+          dds[i].style.display=tmpDisplay;
+      }
+  }
+}
+
+function gs(d,a){
+  if (d.currentStyle){
+    var curVal=d.currentStyle[a]
+  }else{
+    var curVal=document.defaultView.getComputedStyle(d, null)[a]
+  }
+  return curVal;
+}
+</script>
+</head>
+<body>
+<ul id="faq">
+  <li>
+    <dl>
+      <dt>送给刚上大学的孩子们~</dt>
+      <dd style=" font-size:16px;color:rgb(68, 105, 160);">
+				<php>
+					foreach($word as $row){
+						echo iconv('GB2312','utf-8',$row);
+						echo "<br>";
+					}
+				</php>
+	  </dd>
+    </dl>
+  </li>
+   <li>
+    <dl>
+      <dt>新生攻略资料下载</dt>
+      <dd>
+			<ul>
+				<li>
+					<a href="../Public/english.xls">新生入学英语分级考试安排.xls</a>
+				</li>
+			<foreach name="file" item="filename">
+				
+					<li><php>
+						if($filename==".."||$filename=="."){
+						}else{
+							</php>
+							<a href="{:SITE_URL.'/data/uploads/freshman/'.$filename}" target="_blank">{$filename}</a>
+							<php>
+						}
+					</php>
+					</li>
+			</foreach>
+			</ul>
+	  </dd>
+    </dl>
+  </li>
+ <li>
+    <dl>
+      <dt>攻略中心导航</dt>
+      <dd>
+				<span class="title"><a href="{:U('/Index/freshman')}">新生报告</a></span>
+				<div class="introduce">
+					以话题的形式让同学们参与网上虚拟报到，活跃新生氛围~
+				</div>
+				
+				<span class="title"><a href="{:U('/Index/junxun')}">军训专区</a></span>
+				<div class="introduce">
+					以话题的形式让同学们参与到军训热议，谈论军训的点滴~
+				</div>
+				
+				<span class="title"><a href="{:U('/Index/question')}">北科问问</a></span>
+				<div class="introduce">
+					专属新生的北科资讯平台，同学们如果有什么问题可以在上面提问，会有学长学姐主动到上面回答同学们的问题，</p>
+					若某个问题有了回复，则提问题的同学会收到系统消息并前往北科问问查看回复~</p>
+					同时同学们有问题也可以<font color='red'>@</font>北科问问上的四个账号，他们将会把回复通过私信的方式回答提问者~
+				</div>
+				
+				<span class="title"><a href="{:U('/Index/school')}">玩转校园</a></span>
+				<div class="introduce">
+					玩转校园借用北科迎新网的虚拟校园，将校园的三维立体地图展示在网页上，方便同学们了解我们的北科校园~
+				</div>
+	  </dd>
+    </dl>
+  </li>  
+   <li>
+    <dl>
+      <dt>关于Vbeike</dt>
+      <dd>
+			Vbeike是北科新兴的校园微博交流平台，通过微博互相关注连接你我，轻松实现校园沟通~欢迎你加入Vbeike！
+			<img src="../Public/images/about.jpg">
+	</dd>
+    </dl>
+  </li>
+ </ul>
+</body>
+</html>
